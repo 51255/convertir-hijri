@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Convertisseur de date Hijri</title>
+</head>
+<body>
+	<h1>Convertisseur de date Hijri</h1>
+	
+	<p>Entrez une date grégorienne :</p>
+	
+	<input type="date" id="date-input">
+	
+	<button onclick="convert()">Convertir</button>
+	
+	<p>Date Hijri correspondante : <span id="hijri-date"></span></p>
+	
+	<script src="https://unpkg.com/hijri-converter"></script>
+	<script>
+		function convert() {
+			// Récupération de la date grégorienne entrée par l'utilisateur
+			const dateInput = document.getElementById("date-input").value;
+			
+			// Conversion de la date en Hijri
+			const hijriDate = HijriCalendar.toHijri(new Date(dateInput));
+			
+			// Affichage de la date Hijri en libellé
+			const hijriDateString = formatHijriDate(hijriDate);
+			document.getElementById("hijri-date").innerHTML = hijriDateString;
+		}
+		
+		function formatHijriDate(hijriDate) {
+			const daysOfWeek = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+			const monthsOfYear = ["Muharram", "Safar", "Rabi' al-Awwal", "Rabi' al-Thani", "Jumada al-Ula", "Jumada al-Thani", "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhu al-Qidah", "Dhu al-Hijjah"];
+			
+			const dayOfWeek = daysOfWeek[hijriDate.getDay()];
+			const dayOfMonth = hijriDate.getDate();
+			const monthOfYear = monthsOfYear[hijriDate.getMonth()];
+			const year = hijriDate.getFullYear();
+			
+			return dayOfMonth + " " + monthOfYear + " " + year + " (" + dayOfWeek + ")";
+		}
+	</script>
+</body>
+</html>
